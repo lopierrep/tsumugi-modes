@@ -4,6 +4,9 @@
 Uso:
     python set-mode.py auto-commit on|off
     python set-mode.py compile-mode manual|auto
+    python set-mode.py test-mode manual|auto
+    python set-mode.py safe-mode block|allow
+    python set-mode.py push-mode manual|auto
     python set-mode.py status
 """
 
@@ -16,11 +19,17 @@ STATE_FILE = Path.home() / ".claude" / "state" / "tsumugi-modes.json"
 DEFAULT_STATE = {
     "auto_commit": False,
     "compile_mode": "manual",
+    "test_mode": "manual",
+    "safe_mode": "block",
+    "push_mode": "manual",
 }
 
 VALID_VALUES = {
     "auto-commit": {"on": True, "off": False},
     "compile-mode": {"manual": "manual", "auto": "auto"},
+    "test-mode": {"manual": "manual", "auto": "auto"},
+    "safe-mode": {"block": "block", "allow": "allow"},
+    "push-mode": {"manual": "manual", "auto": "auto"},
 }
 
 
@@ -46,8 +55,8 @@ def usage() -> None:
     print("     set-mode.py status", file=sys.stderr)
     print("", file=sys.stderr)
     print("modos disponibles:", file=sys.stderr)
-    print("  auto-commit on|off", file=sys.stderr)
-    print("  compile-mode manual|auto", file=sys.stderr)
+    for mode, values in VALID_VALUES.items():
+        print(f"  {mode} {'|'.join(values.keys())}", file=sys.stderr)
     sys.exit(2)
 
 
@@ -60,9 +69,12 @@ def main() -> None:
     if cmd == "status":
         state = load_state()
         print("tsumugi-modes — estado actual:")
-        print(f"  state file: {STATE_FILE}")
+        print(f"  state file:   {STATE_FILE}")
         print(f"  auto_commit:  {state['auto_commit']}")
         print(f"  compile_mode: {state['compile_mode']}")
+        print(f"  test_mode:    {state['test_mode']}")
+        print(f"  safe_mode:    {state['safe_mode']}")
+        print(f"  push_mode:    {state['push_mode']}")
         return
 
     if len(sys.argv) != 3:
