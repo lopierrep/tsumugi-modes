@@ -1,0 +1,13 @@
+{
+  "name": "tsumugi-modes",
+  "version": "0.1.0",
+  "description": "Modos operacionales togglables para sesiones de Claude Code. Slash commands que cambian cómo Claude se comporta (auto-commit on/off, compile manual/auto, etc.), aplicados vía hook PreToolUse desde un archivo de estado externo a la conversación.",
+  "author": {
+    "name": "Christian",
+    "email": "christian@deadmonkey.co"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/lopierrep/tsumugi-modes",
+  "repository": "https://github.com/lopierrep/tsumugi-modes",
+  "keywords": ["modes", "hooks", "toggles", "auto-commit", "permissions"]
+}
